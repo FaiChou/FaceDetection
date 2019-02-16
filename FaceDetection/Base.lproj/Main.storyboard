@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="FaceDetection" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xlf-iD-ScR">
+                                <rect key="frame" x="128.5" y="120" width="118" height="30"/>
+                                <state key="normal" title="选择照片 (Vision)"/>
+                                <connections>
+                                    <action selector="takePhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rVI-AP-XpF"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="olX-aI-KQv">
+                                <rect key="frame" x="112" y="202" width="151" height="30"/>
+                                <state key="normal" title="选择照片 (CoreImage)"/>
+                                <connections>
+                                    <action selector="takePhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eOA-oD-Gua"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="olX-aI-KQv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Qu0-Pd-HIW"/>
+                            <constraint firstItem="olX-aI-KQv" firstAttribute="top" secondItem="Xlf-iD-ScR" secondAttribute="bottom" constant="52" id="bQW-n6-FVO"/>
+                            <constraint firstItem="Xlf-iD-ScR" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="lpg-L6-aDa"/>
+                            <constraint firstItem="Xlf-iD-ScR" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="p0Y-xZ-eZq"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="takePhotoButton" destination="Xlf-iD-ScR" id="0fs-yd-NCr"/>
+                        <segue destination="by9-nW-nkf" kind="presentation" identifier="detectByVisionSegue" id="BX1-Ad-9S9"/>
+                        <segue destination="9Jo-nu-7Q8" kind="presentation" identifier="detectByCoreImageSegue" id="CjO-5e-nGU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="246" y="45"/>
+        </scene>
+        <!--Core Image Detection Controller-->
+        <scene sceneID="Y2c-vo-SFk">
+            <objects>
+                <viewController id="9Jo-nu-7Q8" customClass="CoreImageDetectionController" customModule="FaceDetection" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MhM-9g-kmc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LqO-hm-gOE">
+                                <rect key="frame" x="16" y="597" width="31" height="30"/>
+                                <state key="normal" title="关闭"/>
+                                <connections>
+                                    <segue destination="0YH-JY-z45" kind="unwind" identifier="dismissCIDetection" unwindAction="exitWithUnwindSegue:" id="4qm-Gx-vUI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1LS-6B-qMD">
+                                <rect key="frame" x="328" y="597" width="31" height="30"/>
+                                <state key="normal" title="识别"/>
+                                <connections>
+                                    <action selector="detact" destination="9Jo-nu-7Q8" eventType="touchUpInside" id="jjK-sa-2yX"/>
+                                    <action selector="process:" destination="by9-nW-nkf" eventType="touchUpInside" id="kEo-IB-8BO"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="17c-tj-Wei">
+                                <rect key="frame" x="16" y="70" width="343" height="518"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="vuC-We-gtb" firstAttribute="bottom" secondItem="LqO-hm-gOE" secondAttribute="bottom" constant="40" id="7aI-xG-um9"/>
+                            <constraint firstItem="vuC-We-gtb" firstAttribute="trailing" secondItem="17c-tj-Wei" secondAttribute="trailing" constant="16" id="DoA-mb-M5k"/>
+                            <constraint firstItem="17c-tj-Wei" firstAttribute="leading" secondItem="vuC-We-gtb" secondAttribute="leading" constant="16" id="Pq3-0j-ser"/>
+                            <constraint firstItem="LqO-hm-gOE" firstAttribute="leading" secondItem="vuC-We-gtb" secondAttribute="leading" constant="16" id="QtK-7I-bn5"/>
+                            <constraint firstItem="17c-tj-Wei" firstAttribute="top" secondItem="vuC-We-gtb" secondAttribute="top" constant="50" id="Yme-nB-Auh"/>
+                            <constraint firstItem="17c-tj-Wei" firstAttribute="centerX" secondItem="MhM-9g-kmc" secondAttribute="centerX" id="eyz-FA-xNm"/>
+                            <constraint firstItem="LqO-hm-gOE" firstAttribute="top" secondItem="17c-tj-Wei" secondAttribute="bottom" constant="9" id="heA-D7-HGs"/>
+                            <constraint firstItem="vuC-We-gtb" firstAttribute="trailing" secondItem="1LS-6B-qMD" secondAttribute="trailing" constant="16" id="lid-sp-ihe"/>
+                            <constraint firstItem="vuC-We-gtb" firstAttribute="bottom" secondItem="1LS-6B-qMD" secondAttribute="bottom" constant="40" id="yfN-Vf-XR7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="vuC-We-gtb"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="17c-tj-Wei" id="YjM-S9-ddE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rah-aY-b0v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="0YH-JY-z45" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1210" y="588"/>
+        </scene>
+        <!--Vision Detection Controller-->
+        <scene sceneID="fPM-yk-IrR">
+            <objects>
+                <viewController id="by9-nW-nkf" customClass="VisionDetectionController" customModule="FaceDetection" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="87f-qK-hta">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fsk-2v-URV">
+                                <rect key="frame" x="16" y="70" width="343" height="518"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5XB-pP-zdL">
+                                <rect key="frame" x="16" y="597" width="31" height="30"/>
+                                <state key="normal" title="关闭"/>
+                                <connections>
+                                    <segue destination="mEj-6q-F89" kind="unwind" identifier="dismissVisionDetection" unwindAction="exitWithUnwindSegue:" id="Tdj-b7-fqK"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aZs-qJ-WNv">
+                                <rect key="frame" x="328" y="597" width="31" height="30"/>
+                                <state key="normal" title="识别"/>
+                                <connections>
+                                    <action selector="process:" destination="by9-nW-nkf" eventType="touchUpInside" id="Whe-N6-bxC"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="fsk-2v-URV" firstAttribute="leading" secondItem="XOs-wd-Mdm" secondAttribute="leading" constant="16" id="5rF-dM-0Vt"/>
+                            <constraint firstItem="fsk-2v-URV" firstAttribute="centerX" secondItem="87f-qK-hta" secondAttribute="centerX" id="Jrd-yU-YSJ"/>
+                            <constraint firstItem="XOs-wd-Mdm" firstAttribute="bottom" secondItem="5XB-pP-zdL" secondAttribute="bottom" constant="40" id="eAz-P9-1MO"/>
+                            <constraint firstItem="XOs-wd-Mdm" firstAttribute="bottom" secondItem="aZs-qJ-WNv" secondAttribute="bottom" constant="40" id="frr-tU-PBp"/>
+                            <constraint firstItem="XOs-wd-Mdm" firstAttribute="trailing" secondItem="aZs-qJ-WNv" secondAttribute="trailing" constant="16" id="h6G-Wi-ZHE"/>
+                            <constraint firstItem="5XB-pP-zdL" firstAttribute="leading" secondItem="XOs-wd-Mdm" secondAttribute="leading" constant="16" id="i1S-ae-TR8"/>
+                            <constraint firstItem="XOs-wd-Mdm" firstAttribute="trailing" secondItem="fsk-2v-URV" secondAttribute="trailing" constant="16" id="joy-pI-q4M"/>
+                            <constraint firstItem="5XB-pP-zdL" firstAttribute="top" secondItem="fsk-2v-URV" secondAttribute="bottom" constant="9" id="oiT-j3-Nb7"/>
+                            <constraint firstItem="fsk-2v-URV" firstAttribute="top" secondItem="XOs-wd-Mdm" secondAttribute="top" constant="50" id="yah-sC-g27"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="XOs-wd-Mdm"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="fsk-2v-URV" id="2Lj-Kp-4uE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2LT-9a-kH9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="mEj-6q-F89" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1194" y="-104"/>
+        </scene>
+    </scenes>
+</document>
