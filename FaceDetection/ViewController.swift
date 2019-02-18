@@ -69,7 +69,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
       }
     } else if segue.identifier == "detectByCoreImageSegue" {
       if let imageViewController = segue.destination as? CoreImageDetectionController {
-        imageViewController.image = self.image
+        let imageUp = UIImage(cgImage: self.image.cgImage!, scale: self.image.scale, orientation: .up)
+        imageViewController.image = imageUp.rotateToPortrait(for: self.image.imageOrientation)
       }
     }
   }

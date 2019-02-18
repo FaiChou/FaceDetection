@@ -21,6 +21,14 @@ class FaceDetectionTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+      var transform: CGAffineTransform!
+      transform = CGAffineTransform(scaleX: 1, y: -1)
+      transform = transform.translatedBy(x: 0, y: -100)
+      print("T1: \(String(describing: transform))")
+      
+      transform = CGAffineTransform(translationX: 0, y: -100)
+      transform = transform.scaledBy(x: 1, y: -1)
+      print("T2: \(String(describing: transform))")
     }
 
     func testPerformanceExample() {
